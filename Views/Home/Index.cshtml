@@ -9,31 +9,65 @@
 
 @section Scripts{
     <script>
-        //建立一個Promise物件
-        const promise = new Promise((resolve,reject) => {
-           //非同步程式碼
-            const num = Math.random() > 0.5 ? 1 : 0;
+        //建立Promise
+        function show(data){
+            const promise = new Promise((resolve, reject) => {
+                setTimeout(() => { resolve(data) },1000)
+            });
+            return promise;
+        }
 
-            if (num) {
-                resolve("成功 > 0.5");
-            } else {
-                reject("失敗 < 0.5")
-            }         
+        //使用Promise
+       // console.log(show("A"));
+        show("A")
+            .then((data) => {
+                console.log(data)
+                return show("B")
+            })
+            .then((data) => {
+                console.log(data)
+                return show("C")
+            })
+            .then((data) => {
+                console.log(data)
+            });
+
+        // setTimeout(function () {
+        //     console.log('A');
+        //     setTimeout(function () {
+        //         console.log('B');
+        //         setTimeout(function () {
+        //             console.log('C');
+        //         }, 1000);
+        //     }, 1000);
+        // }, 1000);
+
+
+      // //建立一個Promise物件
+      //   const promise = new Promise((resolve,reject) => {
+      //      //非同步程式碼
+      //       const num = Math.random() > 0.5 ? 1 : 0;
+
+      //       if (num) {
+      //           resolve("成功 > 0.5");
+      //       } else {
+      //           reject("失敗 < 0.5")
+      //       }         
            
         
-        });
+      //   });
 
-        //使用 Promise
-        promise
-            .then((data) => {
-                console.log(data);
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-            .finally(() => {
-                console.log("END");
-            })
+      //   //使用 Promise
+      //   promise
+      //       .then((data) => {
+      //           console.log(data);
+      //       })
+      //       .catch((err) => {
+      //           console.log(err);
+      //       })
+      //       .finally(() => {
+      //           console.log("END");
+      //       })
 
 
 
@@ -58,15 +92,7 @@
         // }, 1000);
 
 
-        // setTimeout(function () {
-        //     console.log('A');
-        //     setTimeout(function () {
-        //         console.log('B');
-        //         setTimeout(function () {
-        //             console.log('C');
-        //         }, 1000);
-        //     }, 1000);
-        // }, 1000);
+       
 
 
 
