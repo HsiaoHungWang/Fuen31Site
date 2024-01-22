@@ -1,3 +1,6 @@
+using Fuen31Site.Models;
+using Microsoft.EntityFrameworkCore;
+
 namespace Fuen31Site
 {
     public class Program
@@ -8,6 +11,11 @@ namespace Fuen31Site
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddDbContext<MyDBContext>(
+                options => options.UseSqlServer(
+                    builder.Configuration.GetConnectionString("MyDBConnection")
+            ));
 
             var app = builder.Build();
 
