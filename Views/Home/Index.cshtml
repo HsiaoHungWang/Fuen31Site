@@ -17,20 +17,33 @@
             return promise;
         }
 
+        //async await => 用同步的程式語法結構來完成非同步的效果      
+        //IIFE
+        (async () => {
+            let data = await show("A");
+            console.log(data);
+            data = await show("B");
+            console.log(data);
+            data = await show("C");
+            console.log(data);
+        })();
+
+
+
         //使用Promise
        // console.log(show("A"));
-        show("A")
-            .then((data) => {
-                console.log(data)
-                return show("B")
-            })
-            .then((data) => {
-                console.log(data)
-                return show("C")
-            })
-            .then((data) => {
-                console.log(data)
-            });
+        // show("A")
+        //     .then((data) => {
+        //         console.log(data)
+        //         return show("B")
+        //     })
+        //     .then((data) => {
+        //         console.log(data)
+        //         return show("C")
+        //     })
+        //     .then((data) => {
+        //         console.log(data)
+        //     });
 
         // setTimeout(function () {
         //     console.log('A');
