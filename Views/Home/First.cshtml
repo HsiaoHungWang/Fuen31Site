@@ -4,6 +4,7 @@
 }
 
 <h1>First</h1>
+
 <button id="button1" class="btn btn-primary mb-3">Ajax</button>
 <div id="div1" class="alert alert-info"></div>
 
@@ -15,17 +16,25 @@
             //Ajax
            // console.log(fetch('/api/index'));
            //promise resolve() reject
-            fetch('/api/index') 
-                .then(response => {
-                    // console.log(response);
-                    // console.log(response.text()); //promise
-                    return response.text();
-                })
+            // fetch('/api/index') 
+            //     .then(response => {
+            //         // console.log(response);
+            //         // console.log(response.text()); //promise
+            //         return response.text();
+            //     })
+            //     .then(data => {
+            //         //console.log(data);
+            //         theDiv.innerHTML = `<h2>${data}</h2>`;
+            //     })
+            //~ 指向專案根目錄
+            //fetch('~/api/index') 不能使用 ~
+            fetch('@Url.Content("~/api/index")')
+                .then(response => response.text())                
                 .then(data => {
+                    //讀出資料，顯示資料
                     //console.log(data);
                     theDiv.innerHTML = `<h2>${data}</h2>`;
                 })
-
 
             //theDiv.innerHTML = "<h2>Ajax...</h2>";
         })
