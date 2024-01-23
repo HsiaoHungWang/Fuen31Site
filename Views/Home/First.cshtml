@@ -12,8 +12,30 @@
     <script>
         const btn = document.querySelector('#button1');
         const theDiv = document.querySelector('#div1');
-        btn.addEventListener('click',()=> {
-            //Ajax
+        btn.addEventListener('click',async ()=> {
+            try {
+                //Ajax
+                const response = await fetch('@Url.Content("~/api/index")');
+                //not false
+                if (!response.ok) {
+                    throw new Error(response.status);
+                }
+                const data = await response.text();
+                theDiv.innerHTML = `<h2>${data}</h2>`;
+            } catch (err) {
+                theDiv.innerHTML = `<h2>${err}</h2>`;
+            } finally {
+
+            }
+          
+
+
+
+
+
+
+
+
            // console.log(fetch('/api/index'));
            //promise resolve() reject
             // fetch('/api/index') 
@@ -28,13 +50,24 @@
             //     })
             //~ 指向專案根目錄
             //fetch('~/api/index') 不能使用 ~
-            fetch('@Url.Content("~/api/index")')
-                .then(response => response.text())                
-                .then(data => {
-                    //讀出資料，顯示資料
-                    //console.log(data);
-                    theDiv.innerHTML = `<h2>${data}</h2>`;
-                })
+
+
+
+            // fetch('@Url.Content("~/api/index")')
+            //     .then(response => {
+            //         //取出headers資料
+            //         response.headers.forEach((value, name) => {
+            //             console.log(`${name}:${value}`);
+            //         })
+            //         console.log(`ok:${response.ok}`);
+            //         console.log(`status:${response.status}`);
+            //         return response.text();
+            //     })
+            //     .then(data => {
+            //         //讀出資料，顯示資料
+            //         //console.log(data);
+            //         theDiv.innerHTML = `<h2>${data}</h2>`;
+            //     })
 
             //theDiv.innerHTML = "<h2>Ajax...</h2>";
         })

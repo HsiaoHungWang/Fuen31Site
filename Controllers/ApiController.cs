@@ -11,6 +11,7 @@ namespace Fuen31Site.Controllers
             _dbContext = dbContext;
         }
 
+        [HttpPost]
         public IActionResult Index()
         {
             //return Content("Hello Content");
