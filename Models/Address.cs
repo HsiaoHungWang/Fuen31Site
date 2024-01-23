@@ -7,6 +7,7 @@ namespace Fuen31Site.Models;
 
 public partial class Address
 {
+  
     public int Id { get; set; }
 
     public string City { get; set; }

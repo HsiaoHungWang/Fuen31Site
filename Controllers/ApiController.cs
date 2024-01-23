@@ -13,7 +13,9 @@ namespace Fuen31Site.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            //return Content("Hello Content");
+            //return Content("<h2>Hello Content</h2>", "text/html");
+            return Content("<h2>Content, 你好</h2>","text/plain",System.Text.Encoding.UTF8);
         }
         public IActionResult Cities()
         {
