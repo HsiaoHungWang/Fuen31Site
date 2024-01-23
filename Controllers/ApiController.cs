@@ -26,6 +26,10 @@ namespace Fuen31Site.Controllers
             var cities = _dbContext.Addresses.Select(a => a.City).Distinct();
             return Json(cities);
         }
+        public IActionResult Districts(string city) {
+            var districts = _dbContext.Addresses.Where(a => a.City == city).Select(a => a.SiteId).Distinct();
+            return Json(districts);
+        }
 
         public IActionResult Avatar(int id=1) {
             Member? member = _dbContext.Members.Find(id);
@@ -36,6 +40,15 @@ namespace Fuen31Site.Controllers
             }
 
             return NotFound();
+        }
+
+        public IActionResult Register(string name, int age = 26)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                name = "Guest";
+            }
+            return Content($"Hello {name}, You are {age} years old.");
         }
     }
 }

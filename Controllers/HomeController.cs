@@ -23,6 +23,11 @@ namespace Fuen31Site.Controllers
             return View();
         }
 
+        public IActionResult Register()
+        {
+            return View();
+        }
+
         public IActionResult Address() {
             return View();
         }
