@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewData["Title"] = "First";
+}
+
+<h1>First</h1>
+<button id="button1" class="btn btn-primary">Ajax</button>
+<div id="div1" class="alert"></div>
+
+@section Scripts{
+    <script>
+        const btn = document.querySelector('#button1');
+        const theDiv = document.querySelector('#div1');
+        btn.addEventListener('click',()=> {
+            theDiv.innerHTML = "Ajax...";
+        })
+    </script>
+}
