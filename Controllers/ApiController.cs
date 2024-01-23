@@ -11,9 +11,10 @@ namespace Fuen31Site.Controllers
             _dbContext = dbContext;
         }
 
-        [HttpPost]
+        
         public IActionResult Index()
         {
+            System.Threading.Thread.Sleep(5000);
             //return Content("Hello Content");
             //return Content("<h2>Hello Content</h2>", "text/html");
             return Content("Content, 你好","text/plain",System.Text.Encoding.UTF8);

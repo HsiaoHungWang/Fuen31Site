@@ -6,14 +6,22 @@
 <h1>First</h1>
 
 <button id="button1" class="btn btn-primary mb-3">Ajax</button>
+<img src="~/images/Circles.gif" id="img1" style="display:none" />
 <div id="div1" class="alert alert-info"></div>
 
 @section Scripts{
     <script>
         const btn = document.querySelector('#button1');
         const theDiv = document.querySelector('#div1');
+        const imgLoader = document.querySelector('#img1');
+
         btn.addEventListener('click',async ()=> {
             try {
+                //顯示執行中的圖示
+                imgLoader.style.display = "inline";
+                //停用按鈕
+                btn.setAttribute('disabled', 'disabled');
+
                 //Ajax
                 const response = await fetch('@Url.Content("~/api/index")');
                 //not false
@@ -25,7 +33,10 @@
             } catch (err) {
                 theDiv.innerHTML = `<h2>${err}</h2>`;
             } finally {
-
+                //隱藏執行中的圖示
+                imgLoader.style.display = "none";
+                //啟用按鈕
+                btn.removeAttribute('disabled');
             }
           
 
