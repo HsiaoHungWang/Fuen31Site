@@ -15,12 +15,25 @@ namespace Fuen31Site.Controllers
         {
             //return Content("Hello Content");
             //return Content("<h2>Hello Content</h2>", "text/html");
-            return Content("<h2>Content, 你好</h2>","text/plain",System.Text.Encoding.UTF8);
+            return Content("Content, 你好","text/plain",System.Text.Encoding.UTF8);
         }
+
+       
         public IActionResult Cities()
         {
             var cities = _dbContext.Addresses.Select(a => a.City).Distinct();
             return Json(cities);
+        }
+
+        public IActionResult Avatar(int id=1) {
+            Member? member = _dbContext.Members.Find(id);
+            if (member != null)
+            {
+                byte[] img = member.FileData;
+                return File(img, "image/jpeg");
+            }
+
+            return NotFound();
         }
     }
 }
