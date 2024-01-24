@@ -1,6 +1,7 @@
 ﻿using Fuen31Site.Models;
 using Fuen31Site.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.Eventing.Reader;
 
 namespace Fuen31Site.Controllers
 {
@@ -44,6 +45,8 @@ namespace Fuen31Site.Controllers
 
             return NotFound();
         }
+
+        [HttpPost]
         public IActionResult Register(Member member, IFormFile Avatar)
         {
             string fileName = "empty.jpg";
@@ -122,5 +125,10 @@ namespace Fuen31Site.Controllers
         //    // return Content($"Hello {_user.Name}, {_user.Age}歲了,電子郵件是{_user.Email}");
         //  return Content($"{_user.Avatar?.FileName}-{_user.Avatar?.Length}-{_user.Avatar?.ContentType}");
         //}
+
+        [HttpPost]
+        public IActionResult Spots([FromBody]SearchDTO _search) {
+            return Json(_search);
+        }
     }
 }
