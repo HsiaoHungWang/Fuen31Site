@@ -163,7 +163,12 @@ namespace Fuen31Site.Controllers
             //取出分頁資料
             spots = spots.Skip((page - 1) * pageSize).Take(pageSize);
 
-            return Json(spots);
+            //設計要回傳的資料格式
+            SpotsPagingDTO spotsPaging = new SpotsPagingDTO();
+            spotsPaging.TotalPages = TotalPages;
+            spotsPaging.SpotsReslut = spots.ToList();
+
+            return Json(spotsPaging);
         }
     }
 }
