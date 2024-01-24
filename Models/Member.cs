@@ -22,4 +22,5 @@ public partial class Member
     public string Password { get; set; }
 
     public string Salt { get; set; }
+
 }

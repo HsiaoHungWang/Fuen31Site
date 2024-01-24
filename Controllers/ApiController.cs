@@ -44,36 +44,83 @@ namespace Fuen31Site.Controllers
 
             return NotFound();
         }
-
-        // public IActionResult Register(string name, int age = 26)
-        public IActionResult Register(UserDTO _user)
+        public IActionResult Register(Member member, IFormFile Avatar)
         {
-            if (string.IsNullOrEmpty(_user.Name))
-            {
-                _user.Name = "Guest";
-            }
-            //string uploadPath = @"C:\Users\ispan\Documents\workspace\Fuen31Site\wwwroot\uploads\fileName.jpg";
-
-            //todo 檔案存在的處理
-            //todo 限制上傳的檔案類型
-            //todo 限制上傳的檔案大小
-          
             string fileName = "empty.jpg";
-            if(_user.Avatar != null)
+            if (Avatar != null)
             {
-                fileName = _user.Avatar.FileName;
+                fileName = Avatar.FileName;
             }
+
             //取得檔案上傳的實際路徑
             string uploadPath = Path.Combine(_host.WebRootPath, "uploads", fileName);
             //檔案上傳
             using (var fileStream = new FileStream(uploadPath, FileMode.Create))
             {
-                _user.Avatar?.CopyTo(fileStream);
+                Avatar?.CopyTo(fileStream);
             }
 
-          
+            //轉成二進位
+            byte[]? imgByte = null;
+            using (var memoryStream = new MemoryStream())
+            {
+                Avatar?.CopyTo(memoryStream);
+                imgByte = memoryStream.ToArray();
+            }
+
+            member.FileName = fileName;
+            member.FileData = imgByte;
+
+            //新增
+            _dbContext.Members.Add(member);
+            _dbContext.SaveChanges();
+
+
+
+
+            return Content("新增成功");
+
             // return Content($"Hello {_user.Name}, {_user.Age}歲了,電子郵件是{_user.Email}");
-          return Content($"{_user.Avatar?.FileName}-{_user.Avatar?.Length}-{_user.Avatar?.ContentType}");
+            //return Content($"{_user.Avatar?.FileName}-{_user.Avatar?.Length}-{_user.Avatar?.ContentType}");
         }
+
+        // public IActionResult Register(string name, int age = 26)
+        //public IActionResult Register(UserDTO _user)
+        //{
+        //    if (string.IsNullOrEmpty(_user.Name))
+        //    {
+        //        _user.Name = "Guest";
+        //    }
+        //    //string uploadPath = @"C:\Users\ispan\Documents\workspace\Fuen31Site\wwwroot\uploads\fileName.jpg";
+
+        //    //todo 檔案存在的處理
+        //    //todo 限制上傳的檔案類型
+        //    //todo 限制上傳的檔案大小
+
+        //    string fileName = "empty.jpg";
+        //    if(_user.Avatar != null)
+        //    {
+        //        fileName = _user.Avatar.FileName;
+        //    }
+        //    //取得檔案上傳的實際路徑
+        //    string uploadPath = Path.Combine(_host.WebRootPath, "uploads", fileName);
+        //    //檔案上傳
+        //    using (var fileStream = new FileStream(uploadPath, FileMode.Create))
+        //    {
+        //        _user.Avatar?.CopyTo(fileStream);
+        //    }
+
+        //    //轉成二進位
+        //    byte[]? imgByte = null;
+        //    using(var memoryStream = new MemoryStream())
+        //    {
+        //        _user.Avatar?.CopyTo(memoryStream);
+        //        imgByte = memoryStream.ToArray();
+        //    }
+
+
+        //    // return Content($"Hello {_user.Name}, {_user.Age}歲了,電子郵件是{_user.Email}");
+        //  return Content($"{_user.Avatar?.FileName}-{_user.Avatar?.Length}-{_user.Avatar?.ContentType}");
+        //}
     }
 }
