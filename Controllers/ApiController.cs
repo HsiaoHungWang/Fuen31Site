@@ -128,7 +128,16 @@ namespace Fuen31Site.Controllers
 
         [HttpPost]
         public IActionResult Spots([FromBody]SearchDTO _search) {
-            return Json(_search);
+            //根據分類編號讀取景點資料
+            var spots = _search.categoryId == 0 ? _dbContext.SpotImagesSpots : _dbContext.SpotImagesSpots.Where(s => s.CategoryId == _search.categoryId);
+
+            //根據關鍵字搜尋
+            if (!string.IsNullOrEmpty(_search.keyword))
+            {
+               spots = spots.Where(s => s.SpotTitle.Contains(_search.keyword) || s.SpotDescription.Contains(_search.keyword));
+            }
+
+            return Json(spots);
         }
     }
 }
