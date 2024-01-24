@@ -8,8 +8,8 @@
 @section Scripts{
     <script>
         (async() => {
-            //const url = '@Url.Content("~/api/register")?name=Tom&age=30';
-            const url = '@Url.Content("~/api/register")';
+           const url = '@Url.Content("~/api/register")?name=Tom&age=30&email=Tom@company.com';
+            //const url = '@Url.Content("~/api/register")';
             const response = await fetch(url);
             const datas = await response.text();
             console.log(datas);

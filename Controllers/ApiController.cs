@@ -1,4 +1,5 @@
 ﻿using Fuen31Site.Models;
+using Fuen31Site.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fuen31Site.Controllers
@@ -42,13 +43,14 @@ namespace Fuen31Site.Controllers
             return NotFound();
         }
 
-        public IActionResult Register(string name, int age = 26)
+        // public IActionResult Register(string name, int age = 26)
+        public IActionResult Register(UserDTO _user)
         {
-            if (string.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(_user.Name))
             {
-                name = "Guest";
+                _user.Name = "Guest";
             }
-            return Content($"Hello {name}, You are {age} years old.");
+            return Content($"Hello {_user.Name}, {_user.Age}歲了,電子郵件是{_user.Email}");
         }
     }
 }
