@@ -31,6 +31,13 @@ namespace Fuen31Site.Controllers
         public IActionResult Address() {
             return View();
         }
+
+
+        public IActionResult History()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
