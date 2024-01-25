@@ -25,7 +25,7 @@
         inputText.addEventListener('input', async (event) => {
             const keyword = event.target.value.trim();
             if (keyword.length > 0) {
-                console.log(keyword);
+               // console.log(keyword);
                //ajax
                 const url = `@Url.Content("~/api/spotstitle")?keyword=${keyword}`;
                 const response = await fetch(url);
@@ -39,7 +39,7 @@
             }
         })
         const clickHandler = (title) => {
-                    inputText.value = title;
+            inputText.value = title;
         }
     </script>
 }
