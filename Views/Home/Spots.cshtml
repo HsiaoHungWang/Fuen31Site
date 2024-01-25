@@ -6,7 +6,13 @@
 <h1>Spots</h1>
 <div class="row mb-3">
     <div class="col-3"></div>
-    <div class="col-6"></div>
+    <div class="col-6">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">                          
+            </ul>
+        </nav>
+
+    </div>
     <div class="col-3">
         <input type="search" id="inputKeyword" class="form-control"  placeholder="景點搜尋" />
     </div>
@@ -19,13 +25,15 @@
         const searchData = {
             "categoryId": 0,
             "keyword": "北投",
-            "page": 2,
+            "page": 1,
             "pageSize": 9,
             "sortType": "asc",
             "sortBy": ""
         };
         const divSpots = document.querySelector('#spots');
         const inpKeyword = document.querySelector('#inputKeyword');
+        const ulPaging = document.querySelector('.pagination');
+
 
         //根據searchData的條件，讀取景點資料
         const loadSpots = async () => {
@@ -37,7 +45,14 @@
                 }
             });
             const datas = await response.json();
-           // console.log(datas);
+
+            //產生分頁按鈕
+            let liPaging = "";
+            for (let i = 1, max = datas.totalPages; i <= max; i++) {
+                liPaging += `<li class="page-item" onclick="pagingHandler(${i})"><a class="page-link" href="#">${i}</a></li>`;               
+            }
+            ulPaging.innerHTML = liPaging;
+            
             const cardSpots = datas.spotsReslut.map(spot => {
                 const { spotId, spotTitle, spotDescription, spotImage, address } = spot;
                 return(
@@ -62,6 +77,7 @@
             divSpots.innerHTML = cardSpots.join("");
         }
 
+        //搜尋
         inpKeyword.addEventListener('keydown', event => {
             if (event.which === 13) {
                 searchData.keyword = event.target.value;
@@ -69,6 +85,12 @@
                 loadSpots();
             }
         })
+
+        //分頁
+        const pagingHandler = (page) => {
+            searchData.page = page;
+            loadSpots();
+        }
 
         //載入景點
         loadSpots();
