@@ -2,7 +2,14 @@
 @{
     ViewData["Title"] = "Spots";
 }
-
+@section Styles{
+    <style>
+        .currentPage {
+            background-color: lightgreen !important
+        }
+    </style>
+    
+}
 <h1>Spots</h1>
 <div class="row mb-3">
     <div class="col-3"></div>
@@ -49,7 +56,12 @@
             //產生分頁按鈕
             let liPaging = "";
             for (let i = 1, max = datas.totalPages; i <= max; i++) {
-                liPaging += `<li class="page-item" onclick="pagingHandler(${i})"><a class="page-link" href="#">${i}</a></li>`;               
+                if (i === searchData.page) {
+                    liPaging += `<li class="page-item" onclick="pagingHandler(${i})"><a class="page-link currentPage" href="#">${i}</a></li>`;
+                }else{
+                    liPaging += `<li class="page-item" onclick="pagingHandler(${i})"><a class="page-link" href="#">${i}</a></li>`;
+                }
+                
             }
             ulPaging.innerHTML = liPaging;
             
